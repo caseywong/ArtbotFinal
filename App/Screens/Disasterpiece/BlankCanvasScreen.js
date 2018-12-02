@@ -9,6 +9,8 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 
+import TimerCountdown from 'react-native-timer-countdown';
+
 export default class BlankCanvasScreen extends React.Component {
 
   static navigationOptions = {
@@ -16,21 +18,43 @@ export default class BlankCanvasScreen extends React.Component {
     headerStyle: { backgroundColor: 'deepskyblue' }
   };
 
+  state = {
+    sessionTime: null,
+  }
+
+  async componentDidMount() {
+    var value = await AsyncStorage.getItem('time');
+    this.setState({"sessionTime": value});
+  }
+
   render() {
+
     const { navigation } = this.props;
 
     return (
       <View style={styles.container}>
-              <View style={{ flex: 1, flexDirection: 'row' }}>
+
+
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style= {{position: 'absolute', top:0, left: 10 }}>
+
+                <TimerCountdown
+                      initialSecondsRemaining={this.state.sessionTime * 60000}
+                      onTick={secondsRemaining => console.log('tick', secondsRemaining)}
+                      //TODO: On timer end, procede to next screen
+                      // onTimeElapsed={() => console.log('complete')}
+                      //TODO: Style timer
+                      allowFontScaling={true}
+                      style={{ fontSize: 25 }}
+                  />
+
+                </View>
                 <RNSketchCanvas
                   containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
                   canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
                   defaultStrokeIndex={0}
                   defaultStrokeWidth={5}
-                  closeComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Close</Text></View>}
-                  undoComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Undo</Text></View>}
-                  clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Clear</Text></View>}
-                  eraseComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Eraser</Text></View>}
+
                   strokeComponent={color => (
                     <View style={[{ backgroundColor: color }, styles.strokeColorButton]} />
                   )}
@@ -47,15 +71,7 @@ export default class BlankCanvasScreen extends React.Component {
                       }} />
                     </View>
                   )}}
-                  saveComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Save</Text></View>}
-                  savePreference={() => {
-                    return {
-                      folder: 'RNSketchCanvas',
-                      filename: String(Math.ceil(Math.random() * 100000000)),
-                      transparent: false,
-                      imageType: 'png'
-                    }
-                  }}
+
                 />
               </View>
             </View>

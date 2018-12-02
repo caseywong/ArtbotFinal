@@ -26,6 +26,15 @@ export default class SessionSettingsScreeen extends React.Component {
     temperament: 50
   }
 
+  _storeData = async (time) => {
+    try {
+      await AsyncStorage.setItem('time', time);
+    } catch (error) {
+      // Error saving data
+    }
+    console.log("Success", time)
+  }
+
   render() {
     const { navigation } = this.props;
     const dataTime = [{
@@ -39,7 +48,7 @@ export default class SessionSettingsScreeen extends React.Component {
     }, {
       label: "5 min", value: '5',
     }];
-
+    
     return (
       <View style={styles.container}>
         <View style={styles.userMessage}>
@@ -56,7 +65,9 @@ export default class SessionSettingsScreeen extends React.Component {
               data={dataTime}
               textColor="deepskyblue"
               containerStyle={{width:150, marginBottom: 20}}
-              onChangeText={(value) => this.setState({sessionTime: value})}
+              onChangeText={(value) => {this._storeData(value)}
+            }
+
             />
             <Text style={styles.promptMessage}> Would you like a prompt? </Text>
             <Dropdown
