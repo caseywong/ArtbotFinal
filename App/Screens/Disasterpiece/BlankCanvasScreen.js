@@ -12,7 +12,10 @@ import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 import TimerCountdown from 'react-native-timer-countdown';
 
 export default class BlankCanvasScreen extends React.Component {
-
+  constructor(props) {
+  super(props);
+  this.canvas = React.createRef();
+}
   static navigationOptions = {
     headerTitle: 'Disasterpiece',
     headerStyle: { backgroundColor: 'deepskyblue' }
@@ -20,11 +23,29 @@ export default class BlankCanvasScreen extends React.Component {
 
   state = {
     sessionTime: null,
+    path: {
+      drawer: 'user1',
+      size: { // the size of drawer's canvas
+        width: 480,
+        height: 640
+      },
+      path: {
+        id: 0, // path id
+        color: '#000000', // ARGB or RGB
+        width: 10,
+        data: [
+          "296.11,281.34",  // x,y
+          "293.52,284.64",
+          "290.75,289.73"
+        ]
+      }
+    }
   }
 
   async componentDidMount() {
     var value = await AsyncStorage.getItem('time');
     this.setState({"sessionTime": value});
+    console.log("YUP", this.state.path.path);
   }
 
   render() {
@@ -36,6 +57,7 @@ export default class BlankCanvasScreen extends React.Component {
 
 
                 <View style={{ flex: 1, flexDirection: 'row' }}>
+
                 <View style= {{position: 'absolute', top:0, left: 10 }}>
 
                 <TimerCountdown
@@ -50,6 +72,7 @@ export default class BlankCanvasScreen extends React.Component {
 
                 </View>
                 <RNSketchCanvas
+                  ref={ref => this.canvas1 = ref}
                   containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
                   canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
                   defaultStrokeIndex={0}
@@ -71,6 +94,12 @@ export default class BlankCanvasScreen extends React.Component {
                       }} />
                     </View>
                   )}}
+
+                  onStrokeEnd={(path) => {
+                    //this.canvas1.clear();
+                    this.canvas1.addPath(this.state.path)
+                  }}
+
 
                 />
               </View>
