@@ -19,6 +19,8 @@ export default class ChatbotScreen extends React.Component {
 
   static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
+    const fromCanvas = navigation.getParam("fromCanvas");
+    if (fromCanvas) {
     return {
         headerTitle: 'Chatbot',
         headerStyle: { backgroundColor: 'deepskyblue' },
@@ -29,6 +31,12 @@ export default class ChatbotScreen extends React.Component {
           style= {{padding:10}}
         />
     };
+  } else {
+    return {
+        headerTitle: 'Chatbot',
+        headerStyle: { backgroundColor: 'deepskyblue' },
+    };
+  }
   };
 
 
@@ -148,8 +156,8 @@ export default class ChatbotScreen extends React.Component {
         id: 'FeedbackResponse',
         options: [
           { value: 0, label: 'Didn\'t like them', trigger: 'FeedbackInquiryBad' },
-          { value: 1, label: 'Liked them', trigger: 'FeedbackInquiryBad' },
-          { value: 2, label: 'Loved them', trigger: 'FeedbackInquiryGood' },
+          { value: 5, label: 'Liked them', trigger: 'FeedbackInquiryBad' },
+          { value: 10, label: 'Loved them', trigger: 'FeedbackInquiryGood' },
         ],
       }, {
         id: 'FeedbackInquiryBad',

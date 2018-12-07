@@ -166,11 +166,6 @@ export default class BlankCanvasScreen extends React.Component {
       this.setState({promptVisible:true});
       this.setState({"hasStarted": false});
       this.setState({"sessionTime": 0});
-      // Alert.alert(
-      //   "Time's Up!", "Want to chat with ArtBot?",
-      //   [{text: "Maybe Later", onPress: () => this.props.navigation.navigate('HomeScreen')},
-      //   {text: "Yes!", onPress: () => this.props.navigation.navigate('ChatbotScreen')},]
-      // );
     }
   }
 
@@ -179,11 +174,20 @@ export default class BlankCanvasScreen extends React.Component {
     this.setState({"sessionTime": time})
   }
 
+  nextScreen(home, name){
+    this.setState({promptVisible: false});
+    this.setState({name:name});
+    if (home) {
+      this.props.navigation.navigate('HomeScreen');
+    } else {
+      this.props.navigation.navigate('ChatbotScreen', {fromCanvas: true});
+    }
+  }
+
   async componentDidMount() {
     // var value = await AsyncStorage.getItem('time');
     this.setState({"sessionTime": 0});
     this.setState({"background": this.props.navigation.getParam("background")});
-    console.log("RIGHT HERE", this.state.background);
     this.setState({"temperament": this.props.navigation.getParam("temperament")});
     var time = this.props.navigation.getParam('sessionTime', '3 min');
     time = time.split(" ")[0];
@@ -202,7 +206,7 @@ export default class BlankCanvasScreen extends React.Component {
     const { navigation } = this.props
     let promptText = null;
     if (navigation.getParam('prompt', 'No') == 'Yes') {
-      promptText = <View style={{position: 'absolute', width: '100%'}}>
+      promptText = <View style={{position: 'absolute', width: '100%', top: 5}}>
         <Text style={{fontSize: 25, textAlign: 'center'}}>
           {this.state.prompt}
         </Text>
@@ -212,7 +216,6 @@ export default class BlankCanvasScreen extends React.Component {
     return (
 
       <View style={styles.container}>
-
                 <View style={{ flex: 1, flexDirection: 'row' }}>
 
                 <RNSketchCanvas
@@ -222,13 +225,13 @@ export default class BlankCanvasScreen extends React.Component {
                  }}
                   ref={ref => this.canvas1 = ref}
                   containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
-                  canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
+                  canvasStyle={{ backgroundColor: 'transparent', borderWidth:1, borderColor: 'gray', flex: 1 }}
                   defaultStrokeIndex={0}
                   defaultStrokeWidth={5}
 
 
                   strokeComponent={color => (
-                    <View style={[{ backgroundColor: color }, styles.strokeColorButton]} />
+                    <View style={[{backgroundColor: color }, styles.strokeColorButton]} />
                   )}
                   strokeSelectedComponent={(color, index, changed) => {
                     return (
@@ -249,7 +252,7 @@ export default class BlankCanvasScreen extends React.Component {
                   }}
                 />
 
-                <View style= {{position: 'absolute', top:0, left: 10 }}>
+                <View style= {{position: 'absolute', top:7, left: 10 }}>
 
                 <TimerCountdown
                       initialSecondsRemaining={this.state.sessionTime * 60000}
@@ -257,21 +260,22 @@ export default class BlankCanvasScreen extends React.Component {
                       onTimeElapsed={() => this.onFinish()}
                       //TODO: Style timer
                       allowFontScaling={true}
-                      style={{ fontSize: 25 }}
+                      style={{ fontSize: 25}}
                   />
                 </View>
                 {promptText}
               </View>
               <Prompt
-                title="Time's Up!"
+                title="Time's Up! Name Your Disasterpiece!"
                 placeholder="Name your Disasterpiece!"
                 defaultValue="Name"
                 visible={ this.state.promptVisible }
                 submitText = {"Calculate Creative IQ"}
                 cancelText = {"Return Home"}
-                onCancel={ () => this.props.navigation.navigate('HomeScreen') }
-                onSubmit={ (value) => this.props.navigation.navigate('ChatbotScreen')} />
+                onCancel={ (value) => this.nextScreen(true,value) }
+                onSubmit={ (value) => this.nextScreen(false,value) } />
             </View>
+
     );
 
   }

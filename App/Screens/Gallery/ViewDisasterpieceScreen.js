@@ -48,7 +48,7 @@ export default class ViewDisasterpieceScreen extends React.Component {
                     resizeMode="contain"
                     source={Images.muscleTree}/>
               <TouchableOpacity style={styles.proceedButtonWrapper}
-                  onPress={() => navigation.navigate('ChatbotScreen')}>
+                  onPress={() => navigation.navigate('ChatbotScreen',{fromCanvas: false})}>
                   <Text style={{fontSize: 18}}>Calculate Creative IQ!</Text>
               </TouchableOpacity>
         </View>
