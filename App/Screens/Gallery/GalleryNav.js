@@ -6,29 +6,22 @@ import {
 } from 'react-navigation';
 import { Images, Colors, Metrics } from '../../Themes'
 
-import SessionSettingsScreen from '../Disasterpiece/SessionSettingsScreen.js'
-import BlankCanvasScreen from '../Disasterpiece/BlankCanvasScreen.js'
-import UploadArtworkScreen from '../Disasterpiece/UploadArtworkScreen.js'
+import ViewDisasterpieceScreen from '../Gallery/ViewDisasterpieceScreen.js'
 import ChatbotScreen from '../Gallery/ChatbotScreen.js'
-import HomeScreen from '../../Screens/HomeScreen.js'
 import GalleryScreen from '../../Screens/GalleryScreen.js'
 import { FontAwesome } from 'react-native-vector-icons';
 
 const StackNav = createStackNavigator({
-  HomeScreen: {screen: HomeScreen},
-  SessionSettingsScreen: {screen: SessionSettingsScreen},
   GalleryScreen: {screen: GalleryScreen},
-  BlankCanvasScreen: {screen: BlankCanvasScreen},
-  UploadArtworkScreen: {screen: UploadArtworkScreen},
-  ChatbotScreen: { screen: ChatbotScreen}
+  ChatbotScreen: { screen: ChatbotScreen},
+  ViewDisasterpieceScreen: {screen: ViewDisasterpieceScreen},
 }, {
-  initialRouteName: 'HomeScreen',
+  initialRouteName: 'GalleryScreen',
 });
 
 const StackContainer = createAppContainer(StackNav);
 
-export default class DisasterpieceNav extends React.Component {
-
+export default class GalleryNav extends React.Component {
 
   render() {
       return (

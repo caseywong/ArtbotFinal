@@ -1,5 +1,4 @@
 
-
 import {Dimensions, Platform} from 'react-native'
 
 const { width, height } = Dimensions.get('window')
@@ -28,7 +27,7 @@ const metrics = {
   images: {
     small: 20,
     medium: 40,
-    large: 100,
+    large: 125,
     logo: 200
   }
 }

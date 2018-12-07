@@ -21,10 +21,8 @@ export default class ProfileScreen extends React.Component {
   changeStatsDisplay = async(type) => {
     if ( type == 'Calendar') {
       this.setState({calendar: true});
-      Alert.alert('Calendar');
     } else {
       this.setState({calendar: false});
-      Alert.alert('Graph');
     }
 
   }
@@ -103,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.snow
   },
   profileInfo: {
-    marginTop: 25,
+    marginTop: 50,
     flex: 0.75,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -120,7 +118,7 @@ const styles = StyleSheet.create({
   profileName: {
     backgroundColor: 'deepskyblue',
     marginTop: 10,
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold'
   },
   profileMembership: {
@@ -136,13 +134,13 @@ const styles = StyleSheet.create({
   optionsWrapper: {
     marginLeft: 20,
     marginRight: 20,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   optionsWrapperActive: {
       marginLeft: 20,
       marginRight: 20,
-      fontSize: 20,
+      fontSize: 24,
       fontWeight: 'bold',
       backgroundColor: 'deepskyblue'
   },

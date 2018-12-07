@@ -38,16 +38,6 @@ export default class HomeScreen extends React.Component {
             onPress={()=> navigation.navigate('SessionSettingsScreen')}>
             <Text style={styles.continueMessage}> Start a New Canvas </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.controlButtonWrapper}
-            onPress={()=> navigation.navigate('UploadArtworkScreen')}>
-            <Text style={styles.continueMessage}> Upload Artwork </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.controlButtonWrapper}
-            onPress={()=> navigation.navigate('ChatbotScreen')}>
-            <Text style={styles.continueMessage}> Check in! </Text>
-          </TouchableOpacity>
         </View>
 
       </View>

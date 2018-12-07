@@ -5,7 +5,7 @@ import { Images, Colors, Metrics } from './App/Themes'
 import HomeScreen from './App/Screens/HomeScreen.js'
 import DisasterpieceNav from './App/Screens/Disasterpiece/DisasterpieceNav.js'
 import ProfileScreen from './App/Screens/ProfileScreen.js'
-import GalleryScreen from './App/Screens/GalleryScreen.js'
+import GalleryNav from './App/Screens/Gallery/GalleryNav.js'
 import SessionSettingsScreen from './App/Screens/Disasterpiece/SessionSettingsScreen.js'
 
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
@@ -19,7 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
       Profile: {screen: ProfileScreen},
       Home: {screen: DisasterpieceNav},
-      Gallery: {screen: GalleryScreen},
+      Gallery: {screen: GalleryNav},
     },
     {
       defaultNavigationOptions: ({ navigation }) => ({

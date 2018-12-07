@@ -22,6 +22,7 @@ export default class BlankCanvasScreen extends React.Component {
     super(props);
     const prompt = promptOptions[Math.floor(Math.random() * promptOptions.length)];
     this.state = {
+      background: null,
       hasStarted: false,
       sessionTime: null,
       prompt,
@@ -172,10 +173,12 @@ export default class BlankCanvasScreen extends React.Component {
     this.setState({hasStarted: true});
     this.setState({"sessionTime": time})
   }
-  
+
   async componentDidMount() {
     // var value = await AsyncStorage.getItem('time');
     this.setState({"sessionTime": 0});
+    this.setState({"background": this.props.navigation.getParam("background")});
+    console.log("RIGHT HERE", this.state.background);
     this.setState({"temperament": this.props.navigation.getParam("temperament")});
     var time = this.props.navigation.getParam('sessionTime', '3 min');
     time = time.split(" ")[0];
@@ -205,13 +208,17 @@ export default class BlankCanvasScreen extends React.Component {
       <View style={styles.container}>
 
                 <View style={{ flex: 1, flexDirection: 'row' }}>
-
                 <RNSketchCanvas
+                  localSourceImage = {{filename: this.props.navigation.getParam("background"),
+                   directory: '',
+                   mode: 'AspectFill',
+                 }}
                   ref={ref => this.canvas1 = ref}
                   containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
                   canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
                   defaultStrokeIndex={0}
                   defaultStrokeWidth={5}
+
 
                   strokeComponent={color => (
                     <View style={[{ backgroundColor: color }, styles.strokeColorButton]} />

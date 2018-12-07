@@ -14,7 +14,6 @@ export default class ChatbotScreen extends React.Component {
     super(props);
   }
   goHome(){
-    console.log("THARSHEIS")
     this.props.navigation.navigate('HomeScreen');
   }
 

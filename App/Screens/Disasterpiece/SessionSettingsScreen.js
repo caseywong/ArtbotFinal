@@ -1,11 +1,13 @@
 import React from 'react';
-import { SafeView, StyleSheet, Text, View, Image,
-  Button, TouchableOpacity, Alert, Dimensions, Slider,
+import { SafeView, StyleSheet, CameraRoll, Text, View, Image,
+  Button, ScrollView, TouchableOpacity, Alert, Dimensions, Slider,
   AsyncStorage} from 'react-native';
 
 import { FontAwesome } from 'react-native-vector-icons';
 import { Images, Colors, Metrics } from '../../Themes'
 import { Dropdown } from 'react-native-material-dropdown'
+
+import ImagePicker from 'react-native-image-picker';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -23,7 +25,9 @@ export default class SessionSettingsScreeen extends React.Component {
   state = {
     sessionTime: '3 min',
     prompt: "Yes",
-    temperament: 50
+    background: "No",
+    temperament: 50,
+    photos: [],
   }
 
   _storeData = async (time) => {
@@ -34,6 +38,15 @@ export default class SessionSettingsScreeen extends React.Component {
     }
     console.log("Success", time)
   }
+
+  nextScreen(prompt,sessionTime,temperament){
+    if (this.state.background === 'No'){
+      this.props.navigation.navigate('BlankCanvasScreen', {prompt, sessionTime, temperament});
+    } else {
+      this.props.navigation.navigate('UploadArtworkScreen', {prompt, sessionTime, temperament});
+    }
+  }
+
 
   render() {
     const { navigation } = this.props;
@@ -49,11 +62,11 @@ export default class SessionSettingsScreeen extends React.Component {
       value: '5 min',
     }];
 
-    const { prompt, sessionTime, temperament } = this.state;
+    const { prompt, sessionTime, temperament, background} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.userMessage}>
-              <Text style={styles.continueMessage}> Chose your settings for this session! </Text>
+              <Text style={styles.continueMessage}> Choose your settings for this session! </Text>
         </View>
         <View style={styles.imageContainer}>
             <Image style={styles.settings}
@@ -79,6 +92,15 @@ export default class SessionSettingsScreeen extends React.Component {
               containerStyle={{width:150, marginBottom: 20}}
               onChangeText={(value) => this.setState({prompt: value})}
             />
+            <Text style={styles.promptMessage}> Would you like a canvas background? </Text>
+            <Dropdown
+              data={[{value: "No"}, {value: "Yes"}]}
+              value={background}
+              itemTextStyle={{color:'black'}}
+              textColor="deepskyblue"
+              containerStyle={{width:150, marginBottom: 20}}
+              onChangeText={(value) => this.setState({background: value})}
+            />
             <Text style={styles.promptMessage}> How would you like Artbot's temperament to be? </Text>
               <Slider
                  style={{ width: 200, padding: 40}}
@@ -93,7 +115,7 @@ export default class SessionSettingsScreeen extends React.Component {
         </View>
         <View style={styles.start}>
           <TouchableOpacity style={styles.proceedButtonWrapper}
-              onPress={()=> navigation.navigate('BlankCanvasScreen', {prompt, sessionTime, temperament})}>
+              onPress={()=> this.nextScreen(prompt,sessionTime,temperament)}>
               <Text style={styles.continueMessage}> Start! </Text>
           </TouchableOpacity>
         </View>

@@ -16,23 +16,35 @@ export default class GalleryScreen extends React.Component {
 
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-    const disasterpieces = [{image: Images.mandala},
-      {image: Images.muscleTree},
-      {image: Images.reflection},
-      {image: Images.seaword}];
+    const disasterpieces = [
+      {image: Images.mandala, name: 'Mandala', date: '11.27.18', creativeIQ: 6},
+      {image: Images.muscleTree, name: 'Muscle Tree', date: '11.29.18', creativeIQ: 8.5},
+      {image: Images.reflection, name: 'Reflection', date: '11.30.18', creativeIQ: 9},
+      {image: Images.seaword, name: 'Seaword', date: '12.3.18', creativeIQ: 0}];
 
     this.state = {
         dataSource: ds.cloneWithRows(disasterpieces),
-        isModalVisible: false,
         uri: '',
     }
   }
 
+  static navigationOptions = {
+    headerTitle: 'Gallery',
+    headerStyle: { backgroundColor: 'deepskyblue' }
+  };
+
   renderRow(rowData) {
+
+    const { navigation } = this.props;
+
+    const imageSrc = rowData.image;
+    const imageName = rowData.name;
+    const imageDate = rowData.date;
+    const imageIQ = rowData.creativeIQ;
 
     return (
         <TouchableOpacity
-          onPress={() => this.setState({uri: rowData.image, isModalVisible: true})}>
+          onPress={() => navigation.navigate('ViewDisasterpieceScreen', {imageSrc, imageName, imageDate, imageIQ})}>
           <Image style={styles.image}
             source={rowData.image}/>
         </TouchableOpacity>
@@ -46,7 +58,7 @@ export default class GalleryScreen extends React.Component {
     return (
       <View style={styles.container}>
           <View style={styles.titleContainer}>
-            <Text style={styles.galleryTitle}> Your Gallery </Text>
+            <Text style={styles.galleryTitle}> Your Disasterpieces </Text>
           </View>
           <View style={styles.galleryContainer}>
           <ListView
@@ -55,19 +67,6 @@ export default class GalleryScreen extends React.Component {
             renderRow={(rowData) => this.renderRow(rowData)}
             enableEmptySections={true} />
           </View>
-          <Modal isVisible={this.state.isModalVisible}>
-            <View style={styles.modalView}>
-              <Text style={styles.imageTitle}> Muscle Tree</Text>
-              <Text style={styles.dateTitle}> Date </Text>
-                <Image style={styles.disasterpieceView}
-                  resizeMode="contain"
-                  source={this.state.uri}/>
-              <TouchableOpacity style={styles.proceedButtonWrapper}
-                onPress={() => this.setState({ isModalVisible: false })}>
-                <Text style={{fontSize: 18}}>Close</Text>
-              </TouchableOpacity>
-            </View>
-            </Modal>
       </View>
     );
 
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
   },
   galleryContainer: {
     flex: 1,
-    width: 0.9 * SCREEN_WIDTH,
+    width: 1 * SCREEN_WIDTH,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -106,8 +105,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   image: {
-    width: 150,
-    height: 200,
+    width: 165,
+    height: 225,
     marginLeft: 10,
     marginRight: 5,
     marginTop: 10,
