@@ -1,8 +1,9 @@
-export function savePiece(img, name) {
+export function savePiece(img, name, date) {
     return {
         type: 'save-piece',
         img: img,
         name: name,
+        date: date,
         ciq: -1
     };
 }
