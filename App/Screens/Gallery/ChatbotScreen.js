@@ -56,6 +56,8 @@ class ChatbotScreen extends React.Component {
       }
     }
     this.setState({creativeIQ:sum});
+    var img = this.props.navigation.getParam("img", "anon");
+    this.props.addCiq(img, sum);
   }
 
   render() {
