@@ -94,7 +94,7 @@ export default class SessionSettingsScreeen extends React.Component {
               containerStyle={{width:150, marginBottom: 20}}
               onChangeText={(value) => this.setState({prompt: value})}
             />
-            <Text style={styles.promptMessage}> Would you like a canvas background? </Text>
+            <Text style={styles.promptMessage}> Would you like a background? </Text>
             <Dropdown
               data={[{value: "No"}, {value: "Yes"}]}
               value={background}
