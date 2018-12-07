@@ -8,6 +8,7 @@ import { Images, Colors, Metrics } from '../../Themes'
 import ImagePicker from "react-native-image-picker";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT= Dimensions.get('window').height;
 
 export default class UploadArtworkScreen extends React.Component {
 
@@ -62,18 +63,19 @@ export default class UploadArtworkScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <Text style={styles.textStyle}>Choose canvas background</Text>
-      <View style={styles.placeholder}>
-        <Image source={this.state.pickedImage} style={styles.previewImage} />
-      </View>
-        <View style={styles.button}>
-
-          <Button title="Pick Image" onPress={this.pickImageHandler} />
-
-          <Button title="Reset" onPress={this.resetHandler} />
-
+        <Text style={styles.textStyle}>Choose Your Canvas</Text>
+        <View style={styles.placeholder}>
+          <Image source={this.state.pickedImage} style={styles.previewImage} />
         </View>
-        <TouchableOpacity style={styles.proceedButtonWrapper}
+        <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonStyle} onPress={this.pickImageHandler}>
+              <Text style={{fontSize:22}}> Upload </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonStyle} onPress={this.resetHandler}>
+              <Text style={{fontSize:22}}> Reset </Text>
+            </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.continuebuttonStyle}
             onPress={()=> this.nextScreen()}>
             <Text style={styles.continueMessage}> Start! </Text>
         </TouchableOpacity>
@@ -84,31 +86,52 @@ export default class UploadArtworkScreen extends React.Component {
 
   const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'column',
     alignItems:"center"
   },
   textStyle: {
-    fontWeight:"bold",
+    fontWeight:'bold',
     fontSize:30,
-    textAlign:"center",
-    color:"red",
-    marginTop:10
+    marginTop:20
   },
   placeholder: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "black",
     backgroundColor: "#eee",
-    width: "70%",
-    height: 280,
-    marginTop:50,
+    width: 0.75 * SCREEN_WIDTH,
+    height: 0.5 * SCREEN_HEIGHT,
+    marginTop:25,
   },
-  button: {
-    width: "80%",
-    marginTop:20,
-    flexDirection:"row",
-    justifyContent: "space-around"
+  buttonContainer: {
+    flex: 0.5,
+    width: 0.75 * SCREEN_WIDTH,
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: "space-around",
+  },
+  buttonStyle: {
+    backgroundColor: 'deepskyblue',
+    height: 40,
+    width: 100,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   previewImage: {
       width: "100%",
       height: "100%"
+  },
+  continuebuttonStyle: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 0.65 * SCREEN_WIDTH,
+      height: 50,
+      backgroundColor: 'deepskyblue',
+      borderRadius: 25,
+  },
+  continueMessage: {
+    fontSize: 26,
   }
-  });
+});

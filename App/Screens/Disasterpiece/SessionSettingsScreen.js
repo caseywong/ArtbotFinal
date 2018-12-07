@@ -125,6 +125,7 @@ export default class SessionSettingsScreeen extends React.Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
   },
   settings: {
     width: 0.65 * SCREEN_WIDTH,
@@ -152,15 +153,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   welcomeMessage: {
-    backgroundColor: 'deepskyblue',
     marginTop: 10,
-    fontSize: 30,
-    fontWeight: 'bold'
+    fontSize: 24,
   },
   continueMessage: {
     marginTop: 5,
-    fontSize: 20,
-    fontStyle: 'italic'
+    fontSize: 24,
   },
   promptMessage: {
     marginTop: 5,

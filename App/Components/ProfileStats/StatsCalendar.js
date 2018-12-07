@@ -45,15 +45,17 @@ export default class StatsCalendar extends Component {
         />
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.modalView}>
-            <Text style={styles.imageTitle}> {this.state.viewDay.title} </Text>
-            <Text style={styles.dateTitle}> {this.state.viewDay.date} </Text>
-            <Text style={styles.iqTitle}> Creative IQ: {this.state.viewDay.creativeIQ} </Text>
+            <View style={styles.textView}>
+              <Text style={styles.imageTitle}> {this.state.viewDay.title} </Text>
+              <Text style={styles.dateTitle}> {this.state.viewDay.date} </Text>
+              <Text style={styles.iqTitle}> Creative IQ: {this.state.viewDay.creativeIQ} </Text>
+            </View>
               <Image style={styles.disasterpieceView}
                 resizeMode="contain"
                 source={this.state.viewDay.image}/>
             <TouchableOpacity style={styles.proceedButtonWrapper}
               onPress={() => this.setState({ isModalVisible: false })}>
-              <Text style={{fontSize: 18}}>Close</Text>
+              <Text style={{fontSize: 24}}>Close</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -76,30 +78,38 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'white',
     },
+    textView: {
+      flex: 0.5,
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    },
     disasterpieceView: {
-      width: 0.6 * SCREEN_WIDTH,
+      width: 0.75 * SCREEN_WIDTH,
       height: 0.6 * SCREEN_HEIGHT,
       borderColor: 'black',
       borderWidth: 2,
+      marginTop: 25
     },
     imageTitle: {
-        fontSize: 30,
-        marginTop: 10,
+        fontSize: 40,
+        marginTop: 30,
         fontWeight: 'bold',
         backgroundColor: 'deepskyblue'
     },
     dateTitle: {
-        fontSize: 20,
+        marginTop: 10,
+        fontSize: 24,
     },
     iqTitle: {
-        fontSize: 20,
+        marginTop: 10,
+        fontSize: 24,
         backgroundColor: 'deepskyblue'
     },
     proceedButtonWrapper: {
       alignItems: 'center',
       justifyContent: 'center',
-      width: 0.50 * SCREEN_WIDTH,
-      height: 30,
+      width: 0.5 * SCREEN_WIDTH,
+      height: 40,
       backgroundColor: 'deepskyblue',
       borderRadius: 25,
       marginBottom: 5,

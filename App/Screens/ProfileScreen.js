@@ -69,7 +69,6 @@ export default class ProfileScreen extends React.Component {
               <Text style={styles.profileName}> Casey Wong </Text>
               <Text style={styles.profileMembership}> Member since November 2018 </Text>
             </View>
-
             <View style={styles.statsOptions}>
                 <TouchableOpacity onPress={() => this.changeStatsDisplay('Calendar')}>
                     <Text style={styles.optionsWrapper}> Calendar </Text>
@@ -106,24 +105,22 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: 2,
   },
   profilePicture: {
     height: Metrics.images.large,
     width: Metrics.images.large,
-    borderRadius: Metrics.images.large * 0.5,
+    borderRadius: Metrics.images.large * 0.35,
     borderColor: 'black',
   },
   profileName: {
     backgroundColor: 'deepskyblue',
     marginTop: 10,
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: 'bold'
   },
   profileMembership: {
     marginTop: 5,
-    fontSize: 20
+    fontSize: 25
   },
   statsOptions: {
     flex: 0.25,
@@ -134,13 +131,13 @@ const styles = StyleSheet.create({
   optionsWrapper: {
     marginLeft: 20,
     marginRight: 20,
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   optionsWrapperActive: {
       marginLeft: 20,
       marginRight: 20,
-      fontSize: 24,
+      fontSize: 30,
       fontWeight: 'bold',
       backgroundColor: 'deepskyblue'
   },
@@ -149,5 +146,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
+    borderColor: 'black',
+    borderWidth: 3,
+    marginBottom: 20,
+    width: 0.8 * SCREEN_WIDTH
   }
 });

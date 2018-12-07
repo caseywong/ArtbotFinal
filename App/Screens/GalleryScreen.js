@@ -58,7 +58,7 @@ export default class GalleryScreen extends React.Component {
     return (
       <View style={styles.container}>
           <View style={styles.titleContainer}>
-            <Text style={styles.galleryTitle}> Your Disasterpieces </Text>
+            <Text style={styles.galleryTitle}> Disasterpieces </Text>
           </View>
           <View style={styles.galleryContainer}>
           <ListView
@@ -89,8 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   galleryTitle: {
-    fontSize: 35,
-    textDecorationLine: 'underline',
+    fontSize: 40,
     backgroundColor: 'deepskyblue'
   },
   galleryContainer: {
@@ -99,18 +98,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 25
   },
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
   image: {
-    width: 165,
+    width: 175,
     height: 225,
     marginLeft: 10,
     marginRight: 5,
     marginTop: 10,
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: 'black'
   },
   modalView: {

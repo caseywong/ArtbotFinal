@@ -25,18 +25,18 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-            <Image style={styles.logo}
-              source={Images.logo}
-              resizeMode='contain'/>
+          <Image style={styles.logo}
+            source={Images.logo}
+            resizeMode='contain'/>
         </View>
         <View style={styles.userMessage}>
               <Text style={styles.welcomeMessage}> Welcome to ArtBot! </Text>
-              <Text style={styles.continueMessage}> What would you like to do today? </Text>
+              <Text style={styles.continueMessage}>your antagonistic, artful companion </Text>
         </View>
         <View style={styles.control}>
           <TouchableOpacity style={styles.controlButtonWrapper}
             onPress={()=> navigation.navigate('SessionSettingsScreen')}>
-            <Text style={styles.continueMessage}> Start a New Canvas </Text>
+            <Text style={styles.proceedMessage}> Start a New Canvas </Text>
           </TouchableOpacity>
         </View>
 
@@ -54,16 +54,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.snow
+    backgroundColor: 'deepskyblue'
   },
   imageContainer: {
-    flex: 0.75,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
   logo: {
-    width: 0.65 * SCREEN_WIDTH,
+    width: 1 * SCREEN_WIDTH,
   },
   userMessage: {
     flex: 0.15,
@@ -73,29 +73,34 @@ const styles = StyleSheet.create({
   },
   welcomeMessage: {
     backgroundColor: 'deepskyblue',
-    marginTop: 10,
-    fontSize: 30,
-    fontWeight: 'bold'
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'white'
   },
   continueMessage: {
     marginTop: 5,
     fontSize: 20,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    color: 'white'
+  },
+  proceedMessage: {
+    marginTop: 5,
+    fontSize: 30,
+    color: 'white'
   },
   control: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 25,
-    marginBottom: 25
   },
   controlButtonWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 0.65 * SCREEN_WIDTH,
-    height: 50,
-    backgroundColor: 'deepskyblue',
-    borderRadius: 25
+    width: 0.75 * SCREEN_WIDTH,
+    height: 75,
+    borderColor: Colors.snow,
+    borderRadius: 25,
+    borderWidth: 5,
   },
 });

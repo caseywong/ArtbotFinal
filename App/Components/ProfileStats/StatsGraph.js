@@ -47,22 +47,24 @@ export default class StatsGraph extends Component {
                         modalCreativeIQ: item.creativeIQ })}>{item.name}</Text>
                   <Text style={styles.date}>{item.date}</Text>
                   <View style={{backgroundColor: 'deepskyblue', width: SCREEN_WIDTH * item.creativeIQ * 0.1 * 0.75}}>
-                    <Text>{item.creativeIQ}</Text>
+                    <Text style={styles.iqLine}>{item.creativeIQ}</Text>
                   </View>
                 </View>
               }
             />
             <Modal isVisible={this.state.isModalVisible}>
               <View style={styles.modalView}>
-                <Text style={styles.imageTitle}> {this.state.modalName} </Text>
-                <Text style={styles.dateTitle}> {this.state.modalDate} </Text>
-                <Text style={styles.iqTitle}> Creative IQ: {this.state.modalCreativeIQ} </Text>
+                <View style={styles.textView}>
+                  <Text style={styles.imageTitle}> {this.state.modalName} </Text>
+                  <Text style={styles.dateTitle}> {this.state.modalDate} </Text>
+                  <Text style={styles.iqTitle}> Creative IQ: {this.state.modalCreativeIQ} </Text>
+                </View>
                   <Image style={styles.disasterpieceView}
                     resizeMode="contain"
                     source={this.state.modalImage}/>
                 <TouchableOpacity style={styles.proceedButtonWrapper}
                   onPress={() => this.setState({ isModalVisible: false })}>
-                  <Text style={{fontSize: 18}}>Close</Text>
+                  <Text style={{fontSize: 24}}>Close</Text>
                 </TouchableOpacity>
               </View>
             </Modal>
@@ -89,16 +91,17 @@ const styles = StyleSheet.create({
         paddingBottom: 4,
       },
       name: {
-        fontSize: 20,
+        fontSize: 24,
         paddingBottom: 2,
         fontWeight: 'bold'
       },
       date: {
-        fontSize: 16,
+        fontSize: 22,
         paddingBottom: 2
       },
       iqLine: {
-        fontSize: 14,
+        fontSize: 22,
+        marginRight: 5,
         paddingBottom: 2,
         fontWeight: 'bold'
       },
@@ -108,22 +111,30 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
       },
+      textView: {
+        flex: 0.5,
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      },
       disasterpieceView: {
-        width: 0.6 * SCREEN_WIDTH,
+        width: 0.75 * SCREEN_WIDTH,
         height: 0.6 * SCREEN_HEIGHT,
         borderColor: 'black',
         borderWidth: 2,
+        marginTop: 25
       },
       imageTitle: {
           fontSize: 30,
-          marginTop: 10,
+          marginTop: 30,
           fontWeight: 'bold',
           backgroundColor: 'deepskyblue'
       },
       dateTitle: {
-          fontSize: 20,
+          marginTop: 10,
+          fontSize: 24,
       },
       iqTitle: {
+          marginTop: 10,
           fontSize: 20,
           backgroundColor: 'deepskyblue'
       },
@@ -131,7 +142,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: 0.50 * SCREEN_WIDTH,
-        height: 30,
+        height: 40,
         backgroundColor: 'deepskyblue',
         borderRadius: 25,
         marginBottom: 5,
