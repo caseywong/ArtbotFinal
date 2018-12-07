@@ -12,6 +12,8 @@ import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 
 import TimerCountdown from 'react-native-timer-countdown';
 
+import Prompt from 'rn-prompt';
+
 const promptOptions = [
   'a tree', 'a dog', 'Trijeet', 'a dinosaur', 'a unicorn', 'an alien',
   'a snowperson', 'an island', 'an airplane', 'a clown', 'your nightmare'
@@ -22,10 +24,12 @@ export default class BlankCanvasScreen extends React.Component {
     super(props);
     const prompt = promptOptions[Math.floor(Math.random() * promptOptions.length)];
     this.state = {
+      name: null,
       background: null,
       hasStarted: false,
       sessionTime: null,
       prompt,
+      promptVisible: false,
       path: [{
         drawer: 'user1',
         size: { // the size of drawer's canvas
@@ -159,13 +163,14 @@ export default class BlankCanvasScreen extends React.Component {
 
   onFinish(){
     if (this.state.hasStarted) {
+      this.setState({promptVisible:true});
       this.setState({"hasStarted": false});
       this.setState({"sessionTime": 0});
-      Alert.alert(
-        "Time's Up!", "Want to chat with ArtBot?",
-        [{text: "Maybe Later", onPress: () => this.props.navigation.navigate('HomeScreen')},
-        {text: "Yes!", onPress: () => this.props.navigation.navigate('ChatbotScreen')},]
-      );
+      // Alert.alert(
+      //   "Time's Up!", "Want to chat with ArtBot?",
+      //   [{text: "Maybe Later", onPress: () => this.props.navigation.navigate('HomeScreen')},
+      //   {text: "Yes!", onPress: () => this.props.navigation.navigate('ChatbotScreen')},]
+      // );
     }
   }
 
@@ -205,9 +210,11 @@ export default class BlankCanvasScreen extends React.Component {
     }
 
     return (
+
       <View style={styles.container}>
 
                 <View style={{ flex: 1, flexDirection: 'row' }}>
+
                 <RNSketchCanvas
                   localSourceImage = {{filename: this.props.navigation.getParam("background"),
                    directory: '',
@@ -255,6 +262,15 @@ export default class BlankCanvasScreen extends React.Component {
                 </View>
                 {promptText}
               </View>
+              <Prompt
+                title="Time's Up!"
+                placeholder="Name your Disasterpiece!"
+                defaultValue="Name"
+                visible={ this.state.promptVisible }
+                submitText = {"Calculate Creative IQ"}
+                cancelText = {"Return Home"}
+                onCancel={ () => this.props.navigation.navigate('HomeScreen') }
+                onSubmit={ (value) => this.props.navigation.navigate('ChatbotScreen')} />
             </View>
     );
 

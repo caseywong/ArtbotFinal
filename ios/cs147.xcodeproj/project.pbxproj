@@ -50,7 +50,6 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		85171C8221B933DD00527ECE /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85171C7D21B9338200527ECE /* libART.a */; };
 		85171C8921BA263100527ECE /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85171C8821BA262200527ECE /* libRCTCameraRoll.a */; };
-		85171CD621BA48D400527ECE /* Mandala.png in Resources */ = {isa = PBXBuildFile; fileRef = 85171CD521BA48D400527ECE /* Mandala.png */; };
 		85171CDA21BA49A800527ECE /* Mandala.png in Resources */ = {isa = PBXBuildFile; fileRef = 85171CD921BA49A800527ECE /* Mandala.png */; };
 		94F80E762D934FDEB2597A74 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AC4F0DC90164825A5B1959D /* FontAwesome5_Regular.ttf */; };
 		9B9D5192DD654308B874EFFF /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D078A40975FD4103BC3882E9 /* Entypo.ttf */; };
@@ -435,9 +434,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		85171C7721B9338200527ECE /* ART copy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "ART copy.xcodeproj"; path = "../node_modules/react-native/Libraries/ART/ART copy.xcodeproj"; sourceTree = "<group>"; };
 		85171C8321BA262200527ECE /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
-		85171CD521BA48D400527ECE /* Mandala.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mandala.png; sourceTree = "<group>"; };
-		85171CD721BA492100527ECE /* Mandala.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Mandala.png; path = "/Users/zacharygoodale-pirkle/Developer/cs147/ios/Mandala.png"; sourceTree = "<absolute>"; };
-		85171CD821BA492900527ECE /* Mandala.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Mandala.png; path = "/Users/zacharygoodale-pirkle/Developer/cs147/ios/Mandala.png"; sourceTree = "<absolute>"; };
 		85171CD921BA49A800527ECE /* Mandala.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Mandala.png; path = ../App/Images/SampleDisasterpieces/Mandala.png; sourceTree = "<group>"; };
 		8816F88481464DEA8ECA6B2A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		976CC05C80D348EC98CC8FB6 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -598,7 +594,6 @@
 		13B07FAE1A68108700A75B9A /* cs147 */ = {
 			isa = PBXGroup;
 			children = (
-				85171CD721BA492100527ECE /* Mandala.png */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -697,7 +692,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				85171CD521BA48D400527ECE /* Mandala.png */,
 				13B07FAE1A68108700A75B9A /* cs147 */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* cs147Tests */,
@@ -787,7 +781,6 @@
 		9BBE1F77A16045C98E907695 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				85171CD821BA492900527ECE /* Mandala.png */,
 				2CDB3A5D0BFA4EC491E912AF /* AntDesign.ttf */,
 				D078A40975FD4103BC3882E9 /* Entypo.ttf */,
 				E01C545578AB4ABEA8CABE54 /* EvilIcons.ttf */,
@@ -1358,7 +1351,6 @@
 				4250B6C6FBD34DAB954CD325 /* MaterialCommunityIcons.ttf in Resources */,
 				5111FCDBF5DF455F8BB814F2 /* MaterialIcons.ttf in Resources */,
 				85171CDA21BA49A800527ECE /* Mandala.png in Resources */,
-				85171CD621BA48D400527ECE /* Mandala.png in Resources */,
 				EFFC30E43B3F4CDAA95DA4E7 /* Octicons.ttf in Resources */,
 				BC0DA456AC8242D998B57747 /* SimpleLineIcons.ttf in Resources */,
 				76D8C1C5217C4CBB960B6325 /* Zocial.ttf in Resources */,
