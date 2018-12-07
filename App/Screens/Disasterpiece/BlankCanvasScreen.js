@@ -138,6 +138,7 @@ export default class BlankCanvasScreen extends React.Component {
     const {params = {}} = navigation.state;
     return {
     headerTitle: 'Disasterpiece',
+    headerTintColor: 'white',
     headerStyle: { backgroundColor: 'deepskyblue' },
     headerLeft: <Ionicons name={'ios-home'}
       size={25}
@@ -156,7 +157,7 @@ export default class BlankCanvasScreen extends React.Component {
 
   addLine(time){
     time = Math.floor(time / 1000);
-    if (this.state.hasStarted && time % this.state.temperament === 0 
+    if (this.state.hasStarted && time % this.state.temperament === 0
       && time < this.state.sessionTime*60 && time > 5){
       var num = Math.floor(Math.random() * 8);
       if (num <= 5) {

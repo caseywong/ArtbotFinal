@@ -64,7 +64,7 @@ export default class StatsGraph extends Component {
                     source={this.state.modalImage}/>
                 <TouchableOpacity style={styles.proceedButtonWrapper}
                   onPress={() => this.setState({ isModalVisible: false })}>
-                  <Text style={{fontSize: 24}}>Close</Text>
+                  <Text style={{fontSize: 24, color: 'white'}}>Close</Text>
                 </TouchableOpacity>
               </View>
             </Modal>
@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginRight: 5,
         paddingBottom: 2,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'white'
       },
       modalView: {
         flex: 1,
@@ -127,7 +128,8 @@ const styles = StyleSheet.create({
           fontSize: 30,
           marginTop: 30,
           fontWeight: 'bold',
-          backgroundColor: 'deepskyblue'
+          backgroundColor: 'deepskyblue',
+          color: 'white'
       },
       dateTitle: {
           marginTop: 10,
@@ -135,8 +137,10 @@ const styles = StyleSheet.create({
       },
       iqTitle: {
           marginTop: 10,
-          fontSize: 20,
-          backgroundColor: 'deepskyblue'
+          fontSize: 24,
+          backgroundColor: 'deepskyblue',
+          color: 'white',
+          marginLeft: 15
       },
       proceedButtonWrapper: {
         alignItems: 'center',

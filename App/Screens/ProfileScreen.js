@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'deepskyblue',
     marginTop: 10,
     fontSize: 40,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: 'white'
   },
   profileMembership: {
     marginTop: 5,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
       marginRight: 20,
       fontSize: 30,
       fontWeight: 'bold',
-      backgroundColor: 'deepskyblue'
+      textDecorationLine: 'underline'
   },
   profileStats: {
     flex: 1,

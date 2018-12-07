@@ -55,7 +55,7 @@ export default class StatsCalendar extends Component {
                 source={this.state.viewDay.image}/>
             <TouchableOpacity style={styles.proceedButtonWrapper}
               onPress={() => this.setState({ isModalVisible: false })}>
-              <Text style={{fontSize: 24}}>Close</Text>
+              <Text style={{fontSize: 24, color: 'white'}}>Close</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
         fontSize: 40,
         marginTop: 30,
         fontWeight: 'bold',
-        backgroundColor: 'deepskyblue'
+        backgroundColor: 'deepskyblue',
+        color: 'white'
     },
     dateTitle: {
         marginTop: 10,
@@ -103,7 +104,8 @@ const styles = StyleSheet.create({
     iqTitle: {
         marginTop: 10,
         fontSize: 24,
-        backgroundColor: 'deepskyblue'
+        backgroundColor: 'deepskyblue',
+        color: 'white'
     },
     proceedButtonWrapper: {
       alignItems: 'center',

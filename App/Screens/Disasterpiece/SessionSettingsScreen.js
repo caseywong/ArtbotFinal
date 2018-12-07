@@ -19,6 +19,7 @@ export default class SessionSettingsScreeen extends React.Component {
 
   static navigationOptions = {
     headerTitle: 'Settings',
+    headerTintColor: 'white',
     headerStyle: { backgroundColor: 'deepskyblue' }
   };
 
@@ -118,7 +119,7 @@ export default class SessionSettingsScreeen extends React.Component {
         <View style={styles.start}>
           <TouchableOpacity style={styles.proceedButtonWrapper}
               onPress={()=> this.nextScreen(prompt,sessionTime,temperament)}>
-              <Text style={styles.continueMessage}> Start! </Text>
+              <Text style={styles.continueForwardMessage}> Start! </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -159,6 +160,11 @@ const styles = StyleSheet.create({
   continueMessage: {
     marginTop: 5,
     fontSize: 24,
+  },
+  continueForwardMessage: {
+    marginTop: 5,
+    fontSize: 24,
+    color: 'white'
   },
   promptMessage: {
     marginTop: 5,

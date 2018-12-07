@@ -17,7 +17,8 @@ export default class ViewDisasterpieceScreen extends React.Component {
 
   static navigationOptions = {
     headerTitle: 'Disasterpiece',
-    headerStyle: { backgroundColor: 'deepskyblue' }
+    headerTintColor: 'white',
+    headerStyle: { backgroundColor: 'deepskyblue'}
   };
 
   state = {
@@ -54,7 +55,7 @@ export default class ViewDisasterpieceScreen extends React.Component {
                     source={image}/>
               <TouchableOpacity style={styles.proceedButtonWrapper}
                   onPress={() => navigation.navigate('ChatbotScreen',{fromCanvas: false})}>
-                  <Text style={{fontSize: 22}}>Calculate Creative IQ!</Text>
+                  <Text style={{fontSize: 22, color: 'white'}}>Calculate Creative IQ!</Text>
               </TouchableOpacity>
         </View>
       );
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
       fontSize: 40,
       marginTop: 10,
       fontWeight: 'bold',
+      color: 'white',
       backgroundColor: 'deepskyblue'
   },
   dateTitle: {
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
   },
   iqTitle: {
       fontSize: 24,
+      color: 'white',
       backgroundColor: 'deepskyblue',
       marginBottom: 5,
   },

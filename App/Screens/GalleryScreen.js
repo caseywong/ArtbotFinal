@@ -30,6 +30,7 @@ export default class GalleryScreen extends React.Component {
 
   static navigationOptions = {
     headerTitle: 'Gallery',
+    headerTintColor: 'white',
     headerStyle: { backgroundColor: 'deepskyblue' }
   };
 
@@ -86,11 +87,13 @@ const styles = StyleSheet.create({
   titleContainer: {
     marginTop: 25,
     marginBottom: 25,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   galleryTitle: {
     fontSize: 40,
-    backgroundColor: 'deepskyblue'
+    backgroundColor: 'deepskyblue',
+    fontWeight: 'bold',
+    color: 'white'
   },
   galleryContainer: {
     flex: 1,

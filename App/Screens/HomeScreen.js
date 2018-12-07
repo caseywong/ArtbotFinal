@@ -16,6 +16,7 @@ export default class HomeScreen extends React.Component {
 
   static navigationOptions = {
     headerTitle: 'ArtBot',
+    headerTintColor: 'white',
     headerStyle: { backgroundColor: 'deepskyblue' }
   };
 

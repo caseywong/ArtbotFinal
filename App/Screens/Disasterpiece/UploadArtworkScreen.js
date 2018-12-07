@@ -13,6 +13,7 @@ const SCREEN_HEIGHT= Dimensions.get('window').height;
 export default class UploadArtworkScreen extends React.Component {
 
   static navigationOptions = {
+    headerTintColor: 'white',
     headerTitle: 'Upload Artwork',
     headerStyle: { backgroundColor: 'deepskyblue' }
   };
@@ -69,10 +70,10 @@ export default class UploadArtworkScreen extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.buttonStyle} onPress={this.pickImageHandler}>
-              <Text style={{fontSize:22}}> Upload </Text>
+              <Text style={{fontSize:22, color: 'white'}}> Upload </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonStyle} onPress={this.resetHandler}>
-              <Text style={{fontSize:22}}> Reset </Text>
+              <Text style={{fontSize:22, color: 'white'}}> Reset </Text>
             </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.continuebuttonStyle}
@@ -133,5 +134,6 @@ export default class UploadArtworkScreen extends React.Component {
   },
   continueMessage: {
     fontSize: 26,
+    color: 'white'
   }
 });

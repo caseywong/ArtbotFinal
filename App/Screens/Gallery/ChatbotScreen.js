@@ -23,6 +23,7 @@ export default class ChatbotScreen extends React.Component {
     if (fromCanvas) {
     return {
         headerTitle: 'Chatbot',
+        headerTintColor: 'white',
         headerStyle: { backgroundColor: 'deepskyblue' },
         headerLeft: <Ionicons name={'ios-home'}
           size={25}
@@ -34,6 +35,7 @@ export default class ChatbotScreen extends React.Component {
   } else {
     return {
         headerTitle: 'Chatbot',
+        headerTintColor: 'white',
         headerStyle: { backgroundColor: 'deepskyblue' },
     };
   }
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
   chatbotTitle: {
     fontSize: 35,
     textDecorationLine: 'underline',
-    backgroundColor: 'deepskyblue'
+    backgroundColor: 'deepskyblue',
   },
   chatbotContainer: {
     flex: 1,
