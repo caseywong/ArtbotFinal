@@ -46,6 +46,16 @@ export default class ChatbotScreen extends React.Component {
     creativeIQ: 0,
   };
 
+  calculateCreativeIQ(data){
+    var sum = 0;
+    for (i=0; i < data.values.length; i++){
+      if(Number.isInteger(data.values[i])){
+        sum = sum + data.values[i];
+      }
+    }
+    this.setState({creativeIQ:sum});
+  }
+
   render() {
     const { navigation } = this.props;
 
@@ -73,7 +83,7 @@ export default class ChatbotScreen extends React.Component {
         trigger: 'IntroInquiryResponse',
       }, {
         id: 'IntroInquiryGood',
-        message: "Thats fantastic!",
+        message: "Thats fantastic! Tell me more!",
         trigger: 'IntroInquiryResponse'
       }, {
         id: 'IntroInquiryResponse',
@@ -181,9 +191,11 @@ export default class ChatbotScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ChatBot
+          handleEnd={(value) => this.calculateCreativeIQ(value)}
           steps={steps}
           botBubbleColor="deepskyblue"
           userDelay={200}/>
+
       </View>
     );
 

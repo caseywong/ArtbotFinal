@@ -14,6 +14,8 @@ import TimerCountdown from 'react-native-timer-countdown';
 
 import Prompt from 'rn-prompt';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const promptOptions = [
   'a tree', 'a dog', 'Trijeet', 'a dinosaur', 'a unicorn', 'an alien',
   'a snowperson', 'an island', 'an airplane', 'a clown', 'your nightmare'
@@ -132,15 +134,31 @@ export default class BlankCanvasScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) => {
+    const {params = {}} = navigation.state;
+    return {
     headerTitle: 'Disasterpiece',
-    headerStyle: { backgroundColor: 'deepskyblue' }
+    headerStyle: { backgroundColor: 'deepskyblue' },
+    headerLeft: <Ionicons name={'ios-home'}
+      size={25}
+      onPress= {() => Alert.alert(
+              "Exit Disasterpiece?", "You will lose all progress",
+              [{text: 'Cancel'},
+                {text: 'Exit', onPress: () => navigation.navigate('HomeScreen')},
+              ]
+            )
+         }
+      color="#fff"
+      style= {{padding:10}}
+    />
+  }
   };
 
   addLine(time){
     time = Math.floor(time / 1000);
-    if (this.state.hasStarted && time % this.state.temperament === 0 && time < this.state.sessionTime*60 && time > 10){
-      var num = Math.floor(Math.random() * 7);
+    if (this.state.hasStarted && time % this.state.temperament === 0 
+      && time < this.state.sessionTime*60 && time > 5){
+      var num = Math.floor(Math.random() * 8);
       if (num <= 5) {
         this.canvas1.addPath(this.state.path[num])
         this.state.userPaths.push(this.state.path[num]);
@@ -190,7 +208,12 @@ export default class BlankCanvasScreen extends React.Component {
     this.setState({"background": this.props.navigation.getParam("background")});
     this.setState({"temperament": this.props.navigation.getParam("temperament")});
     var time = this.props.navigation.getParam('sessionTime', '3 min');
-    time = time.split(" ")[0];
+    timeArr = time.split(" ");
+    if (timeArr[1] === "sec"){
+      time = 0.5;
+    } else {
+      time = timeArr[0];
+    }
     if (this.props.navigation.getParam("prompt", "No") == "Yes") {
       Alert.alert(
         "Draw " + this.state.prompt + "!", null,
@@ -266,7 +289,7 @@ export default class BlankCanvasScreen extends React.Component {
                 {promptText}
               </View>
               <Prompt
-                title="Time's Up! Name Your Disasterpiece!"
+                title="Time's Up! Name Your Art!"
                 placeholder="Name your Disasterpiece!"
                 defaultValue="Name"
                 visible={ this.state.promptVisible }

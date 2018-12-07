@@ -23,10 +23,10 @@ export default class SessionSettingsScreeen extends React.Component {
   };
 
   state = {
-    sessionTime: '3 min',
+    sessionTime: '30 sec',
     prompt: "Yes",
     background: "No",
-    temperament: 50,
+    temperament: 10,
     photos: [],
   }
 
@@ -51,6 +51,8 @@ export default class SessionSettingsScreeen extends React.Component {
   render() {
     const { navigation } = this.props;
     const dataTime = [{
+      value: "30 sec",
+    }, {
       value: "1 min",
     }, {
       value: "2 min",
@@ -101,11 +103,11 @@ export default class SessionSettingsScreeen extends React.Component {
               containerStyle={{width:150, marginBottom: 20}}
               onChangeText={(value) => this.setState({background: value})}
             />
-            <Text style={styles.promptMessage}> How would you like Artbot's temperament to be? </Text>
+            <Text style={styles.promptMessage}> How nice should Artbot be? </Text>
               <Slider
                  style={{ width: 200, padding: 40}}
                  step={10}
-                 value={50}
+                 value={10}
                  minimumValue={10}
                  maximumValue={100}
                  onValueChange={(value) => this.setState({temperament: value })}
