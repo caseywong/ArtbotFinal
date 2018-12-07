@@ -5,7 +5,7 @@ const defaultState = [
     { img: 'Seaword.png', name: 'Seaward', date: '11.20.2018', ciq: -1 }
 ];
 
-export default function tasksReducer (state = defaultState, action) {
+export default function disasterpieceReducer (state = defaultState, action) {
     switch (action.type) {
         case 'save-piece':
             return [...state,

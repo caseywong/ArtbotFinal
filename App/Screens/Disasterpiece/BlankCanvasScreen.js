@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image,
   Button, TouchableOpacity, Alert, Dimensions,
   AsyncStorage} from 'react-native';
@@ -9,24 +10,22 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
-
 import TimerCountdown from 'react-native-timer-countdown';
-
 import Prompt from 'rn-prompt';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import { savePiece } from '../../Actions/DisasterpieceActions';
 
 const promptOptions = [
   'a tree', 'a dog', 'Trijeet', 'a dinosaur', 'a unicorn', 'an alien',
   'a snowperson', 'an island', 'an airplane', 'a clown', 'your nightmare'
 ];
 
-export default class BlankCanvasScreen extends React.Component {
+class BlankCanvasScreen extends React.Component {
   constructor(props) {
     super(props);
     const prompt = promptOptions[Math.floor(Math.random() * promptOptions.length)];
     this.state = {
-      name: null,
       background: null,
       hasStarted: false,
       sessionTime: null,
@@ -156,7 +155,7 @@ export default class BlankCanvasScreen extends React.Component {
 
   addLine(time){
     time = Math.floor(time / 1000);
-    if (this.state.hasStarted && time % this.state.temperament === 0 
+    if (this.state.hasStarted && time % this.state.temperament === 0
       && time < this.state.sessionTime*60 && time > 5){
       var num = Math.floor(Math.random() * 8);
       if (num <= 5) {
@@ -194,11 +193,17 @@ export default class BlankCanvasScreen extends React.Component {
 
   nextScreen(home, name){
     this.setState({promptVisible: false});
-    this.setState({name:name});
+    var img = name.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    var date = mm + '.' + dd + '.' + yyyy;
+    this.props.savePiece(img, name, date);
     if (home) {
       this.props.navigation.navigate('HomeScreen');
     } else {
-      this.props.navigation.navigate('ChatbotScreen', {fromCanvas: true});
+      this.props.navigation.navigate('ChatbotScreen', {fromCanvas: true, img});
     }
   }
 
@@ -343,3 +348,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#39579A', justifyContent: 'center', alignItems: 'center', borderRadius: 5,
   }
 });
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        savePiece: (img, name, date) => { dispatch(savePiece(img, name, date)); }
+    };
+}
+
+export default connect(null, mapDispatchToProps)(BlankCanvasScreen);

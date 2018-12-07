@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image,
   Button, TouchableOpacity, Alert, Dimensions,
   AsyncStorage, ListView } from 'react-native';
@@ -9,23 +10,17 @@ import Modal from 'react-native-modal';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export default class GalleryScreen extends React.Component {
+class GalleryScreen extends React.Component {
 
   constructor(props) {
     super(props);
 
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-    const disasterpieces = [
-      {image: Images.mandala, name: 'Mandala', date: '11.27.18', creativeIQ: 6},
-      {image: Images.muscleTree, name: 'Muscle Tree', date: '11.29.18', creativeIQ: 8.5},
-      {image: Images.reflection, name: 'Reflection', date: '11.30.18', creativeIQ: 9},
-      {image: Images.seaword, name: 'Seaword', date: '12.3.18', creativeIQ: 0}];
-
     this.state = {
-        dataSource: ds.cloneWithRows(disasterpieces),
         uri: '',
-    }
+        dataSource: ds.cloneWithRows(props.pieces)
+    };
   }
 
   static navigationOptions = {
@@ -37,16 +32,16 @@ export default class GalleryScreen extends React.Component {
 
     const { navigation } = this.props;
 
-    const imageSrc = rowData.image;
+    const imageSrc = Images[rowData.img];
     const imageName = rowData.name;
     const imageDate = rowData.date;
-    const imageIQ = rowData.creativeIQ;
+    const imageIQ = rowData.ciq;
 
     return (
         <TouchableOpacity
           onPress={() => navigation.navigate('ViewDisasterpieceScreen', {imageSrc, imageName, imageDate, imageIQ})}>
           <Image style={styles.image}
-            source={rowData.image}/>
+            source={imageSrc}/>
         </TouchableOpacity>
     )
   }
@@ -144,3 +139,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   }
 });
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        pieces: state.pieces
+    };
+}
+
+export default connect(mapStateToProps)(GalleryScreen);

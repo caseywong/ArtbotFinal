@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import DisasterpieceReducer from './DisasterpieceReducer';
 
 const AppReducer = combineReducers({
-  dis: DisasterpieceReducer,
+  pieces: DisasterpieceReducer
 });
 
 export default AppReducer;
