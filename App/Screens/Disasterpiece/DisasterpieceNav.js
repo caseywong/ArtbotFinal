@@ -11,11 +11,13 @@ import BlankCanvasScreen from '../Disasterpiece/BlankCanvasScreen.js'
 import UploadArtworkScreen from '../Disasterpiece/UploadArtworkScreen.js'
 import ChatbotScreen from '../Disasterpiece/ChatbotScreen.js'
 import HomeScreen from '../../Screens/HomeScreen.js'
+import GalleryScreen from '../../Screens/GalleryScreen.js'
 import { FontAwesome } from 'react-native-vector-icons';
 
 const StackNav = createStackNavigator({
   HomeScreen: {screen: HomeScreen},
   SessionSettingsScreen: {screen: SessionSettingsScreen},
+  GalleryScreen: {screen: GalleryScreen},
   BlankCanvasScreen: {screen: BlankCanvasScreen},
   UploadArtworkScreen: {screen: UploadArtworkScreen},
   ChatbotScreen: { screen: ChatbotScreen}

@@ -4,24 +4,179 @@ import { StyleSheet, Text, View, Image,
   AsyncStorage} from 'react-native';
 
 import { Images, Colors, Metrics } from '../../Themes'
+import ChatBot from 'react-native-chatbot';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class ChatbotScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  goHome(){
+    console.log("THARSHEIS")
+    this.props.navigation.navigate('HomeScreen');
+  }
 
-  static navigationOptions = {
-    headerTitle: 'Chatbot',
-    headerStyle: { backgroundColor: 'deepskyblue' }
+  static navigationOptions = ({navigation}) => {
+    const {params = {}} = navigation.state;
+    return {
+        headerTitle: 'Chatbot',
+        headerStyle: { backgroundColor: 'deepskyblue' },
+        headerLeft: <Ionicons name={'ios-home'}
+          size={25}
+          onPress= {() => navigation.navigate('HomeScreen') }
+          color="#fff"
+          style= {{padding:10}}
+        />
+    };
+  };
+
+
+
+
+  state = {
+    creativeIQ: 0,
   };
 
   render() {
     const { navigation } = this.props;
 
+    const steps = [
+      {
+        id: 'Intro',
+        message: 'Hi! Artbot here.',
+        trigger: 'IntroQuestion',
+      },
+      {
+        id: 'IntroQuestion',
+        message: 'First tell me how you are feeling!',
+        trigger: 'IntroResponse'
+      },
+      {
+        id: 'IntroResponse',
+        options: [
+          { value: 1, label: 'Not So Good', trigger: 'IntroInquiryBad' },
+          { value: 5, label: 'Ok', trigger: 'IntroInquiryBad' },
+          { value: 10, label: 'Good!', trigger: 'IntroInquiryGood' },
+        ],
+      }, {
+        id: 'IntroInquiryBad',
+        message: "Oh, I'm sorry to hear that! How come?",
+        trigger: 'IntroInquiryResponse',
+      }, {
+        id: 'IntroInquiryGood',
+        message: "Thats fantastic!",
+        trigger: 'IntroInquiryResponse'
+      }, {
+        id: 'IntroInquiryResponse',
+        user: true,
+        trigger: 'ProudQuestion',
+      },  {
+        id: 'ProudQuestion',
+        message: 'Thank you for letting me know. I was wondering if you could tell me how proud you are of your disasterpiece?',
+        trigger: 'ProudResponse'
+      }, {
+        id: 'ProudResponse',
+        options: [
+          { value: 1, label: 'Not Very Proud', trigger: 'ProudInquiryBad' },
+          { value: 5, label: 'Somewhat Proud', trigger: 'ProudInquiryBad' },
+          { value: 10, label: 'Very Proud', trigger: 'ProudInquiryGood' },
+        ],
+      }, {
+        id: 'ProudInquiryBad',
+        message: "Is there a particular reason why?",
+        trigger: 'ProudInquiryResponse',
+      }, {
+        id: 'ProudInquiryGood',
+        message: "I'm so glad to hear that! What are you proud of?",
+        trigger: 'ProudInquiryResponse',
+      }, {
+        id: 'ProudInquiryResponse',
+        user: true,
+        trigger: 'SatisfiedQuestion'
+      }, {
+        id: 'SatisfiedQuestion',
+        message: 'Interesting! How satisified are you with your art?',
+        trigger: 'SatisfiedResponse'
+      }, {
+        id: 'SatisfiedResponse',
+        options: [
+          { value: 1, label: 'Not Very Satisfied', trigger: 'SatisfiedInquiryBad' },
+          { value: 5, label: 'Somewhat Satisfied', trigger: 'SatisfiedInquiryBad' },
+          { value: 10, label: 'Very Satisfied', trigger: 'SatisfiedInquiryGood' },
+        ],
+      }, {
+        id: 'SatisfiedInquiryBad',
+        message: "How come?",
+        trigger: 'SatisfiedInquiryResponse',
+      }, {
+        id: 'SatisfiedInquiryGood',
+        message: "That's great! What was satisifying in particular?",
+        trigger: 'SatisfiedInquiryResponse',
+      }, {
+        id: 'SatisfiedInquiryResponse',
+        user: true,
+        trigger: 'CreativeQuestion'
+      },  {
+        id: 'CreativeQuestion',
+        message: 'Thank you for telling me! I was also wondering, how creative did you feel during this session?',
+        trigger: 'CreativeResponse'
+      }, {
+        id: 'CreativeResponse',
+        options: [
+          { value: 1, label: 'Not Very Creative', trigger: 'CreativeInquiryBad' },
+          { value: 5, label: 'Somewhat Creative', trigger: 'CreativeInquiryBad' },
+          { value: 10, label: 'Very Creative', trigger: 'CreativeInquiryGood' },
+        ],
+      }, {
+        id: 'CreativeInquiryBad',
+        message: "Hmm. Is there a reason you didn't feel creative?",
+        trigger: 'SatisfiedInquiryResponse',
+      }, {
+        id: 'CreativeInquiryGood',
+        message: "That's great! In what moments did you feel particularly creative?",
+        trigger: 'CreativeInquiryResponse',
+      }, {
+        id: 'CreativeInquiryResponse',
+        user: true,
+        trigger: 'AdaptiveQuestion'
+      },  {
+        id: 'AdaptiveQuestion',
+        message: 'That\'s good to know! Finally, it would be great to know what you thought of my interuptions. How were they?',
+        trigger: 'FeedbackResponse'
+      }, {
+        id: 'FeedbackResponse',
+        options: [
+          { value: 0, label: 'Didn\'t like them', trigger: 'FeedbackInquiryBad' },
+          { value: 1, label: 'Liked them', trigger: 'FeedbackInquiryBad' },
+          { value: 2, label: 'Loved them', trigger: 'FeedbackInquiryGood' },
+        ],
+      }, {
+        id: 'FeedbackInquiryBad',
+        message: "Gotcha! Do you have any particular issues or commentary?",
+        trigger: 'FeedbackInquiryResponse',
+      }, {
+        id: 'FeedbackInquiryGood',
+        message: "I'm glad! What would you like more of?",
+        trigger: 'FeedbackInquiryResponse',
+      }, {
+        id: 'FeedbackInquiryResponse',
+        user: true,
+        trigger: 'Goodbye'
+      }, {
+        id: 'Goodbye',
+        message: 'Thanks for taking the time to check in. I will calculate your creative IQ based on your responses. Can\'t wait to talk to you again soon!',
+        end: true,
+      }
+    ];
+
     return (
       <View style={styles.container}>
-          <View style={styles.chatbotContainer}>
-            <Text> find chatbot package </Text>
-          </View>
+        <ChatBot
+          steps={steps}
+          botBubbleColor="deepskyblue"
+          userDelay={200}/>
       </View>
     );
 

@@ -6,71 +6,206 @@ import { StyleSheet, Text, View, Image,
 import { Images, Colors, Metrics } from '../../Themes'
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 
 import TimerCountdown from 'react-native-timer-countdown';
 
+const promptOptions = [
+  'a tree', 'a dog', 'Trijeet', 'a dinosaur', 'a unicorn', 'an alien',
+  'a snowperson', 'an island', 'an airplane', 'a clown', 'your nightmare'
+];
+
 export default class BlankCanvasScreen extends React.Component {
   constructor(props) {
-  super(props);
-  this.canvas = React.createRef();
-}
+    super(props);
+    const prompt = promptOptions[Math.floor(Math.random() * promptOptions.length)];
+    this.state = {
+      hasStarted: false,
+      sessionTime: null,
+      prompt,
+      path: [{
+        drawer: 'user1',
+        size: { // the size of drawer's canvas
+          width: SCREEN_WIDTH*2,
+          height: 640
+        },
+        path: {
+          id: 0, // path id
+          color: '#000000', // ARGB or RGB
+          width: 10,
+          data: [
+            "0 ,100",  // x,y
+            SCREEN_WIDTH +",100",
+            SCREEN_WIDTH*3 +",100"
+          ]
+        }
+        },
+        {
+          drawer: 'user1',
+          size: { // the size of drawer's canvas
+            width: SCREEN_WIDTH*2,
+            height: SCREEN_HEIGHT*2
+          },
+          path: {
+            id: 1, // path id
+            color: '#FF5733', // ARGB or RGB
+            width: 10,
+            data: [
+              "0 ,0",  // x,y
+              SCREEN_WIDTH*4 +"," + SCREEN_HEIGHT*4,
+            ]
+          }
+        },
+        {
+          drawer: 'user1',
+          size: { // the size of drawer's canvas
+            width: SCREEN_WIDTH*2,
+            height: 640
+          },
+          path: {
+            id: 2, // path id
+            color: '#1AE76B', // ARGB or RGB
+            width: 10,
+            data: [
+              SCREEN_WIDTH + ",0",  // x,y
+              SCREEN_WIDTH + "," + SCREEN_HEIGHT*4,
+            ]
+          }
+        },
+        {
+          drawer: 'user1',
+          size: { // the size of drawer's canvas
+            width: SCREEN_WIDTH*2,
+            height: 640
+          },
+          path: {
+            id: 3, // path id
+            color: '#33C7FF', // ARGB or RGB
+            width: 10,
+            data: [
+              "0,"+ SCREEN_WIDTH ,  // x,y
+              SCREEN_HEIGHT*4 + "," + SCREEN_WIDTH
+            ]
+          }
+        },
+        {
+          drawer: 'user1',
+          size: { // the size of drawer's canvas
+            width: SCREEN_WIDTH*2,
+            height: 640
+          },
+          path: {
+            id: 4, // path id
+            color: '#261AE7', // ARGB or RGB
+            width: 10,
+            data: [
+              "0,"+ SCREEN_WIDTH*1.3 ,  // x,y
+              SCREEN_HEIGHT*4 + "," + SCREEN_WIDTH*1.3
+            ]
+          }
+        },
+        {
+          drawer: 'user1',
+          size: { // the size of drawer's canvas
+            width: SCREEN_WIDTH*2,
+            height: 640
+          },
+          path: {
+            id: 5, // path id
+            color: '#E71ACE', // ARGB or RGB
+            width: 10,
+            data: [
+              SCREEN_WIDTH*2 +",0",  // x,y
+              "0 ," + SCREEN_HEIGHT*2
+            ]
+          }
+        },
+      ],
+      userPaths: []
+    }
+  }
+
   static navigationOptions = {
     headerTitle: 'Disasterpiece',
     headerStyle: { backgroundColor: 'deepskyblue' }
   };
 
-  state = {
-    sessionTime: null,
-    path: {
-      drawer: 'user1',
-      size: { // the size of drawer's canvas
-        width: 480,
-        height: 640
-      },
-      path: {
-        id: 0, // path id
-        color: '#000000', // ARGB or RGB
-        width: 10,
-        data: [
-          "296.11,281.34",  // x,y
-          "293.52,284.64",
-          "290.75,289.73"
-        ]
+  addLine(time){
+    time = Math.floor(time / 1000);
+    if (this.state.hasStarted && time % this.state.temperament === 0 && time < this.state.sessionTime*60 && time > 10){
+      var num = Math.floor(Math.random() * 7);
+      if (num <= 5) {
+        this.canvas1.addPath(this.state.path[num])
+        this.state.userPaths.push(this.state.path[num]);
+      } else {
+        this.canvas1.clear();
+        for (j = 0; j < this.state.userPaths.length; j++){
+          alt_path = this.state.userPaths[j];
+          for (i = 0; i < alt_path.path.data.length; i++){
+            var coords = alt_path.path.data[i].split(",");
+            tmp = coords[0];
+            coords[0] = coords[1];
+            coords[1] = tmp;
+            alt_path.path.data[i] = coords.join(",");
+          }
+          this.canvas1.addPath(alt_path)
+        }
       }
     }
   }
 
+  onFinish(){
+    if (this.state.hasStarted) {
+      this.setState({"hasStarted": false});
+      this.setState({"sessionTime": 0});
+      Alert.alert(
+        "Time's Up!", "Want to chat with ArtBot?",
+        [{text: "Maybe Later", onPress: () => this.props.navigation.navigate('HomeScreen')},
+        {text: "Yes!", onPress: () => this.props.navigation.navigate('ChatbotScreen')},]
+      );
+    }
+  }
+
+  startTime(time){
+    this.setState({hasStarted: true});
+    this.setState({"sessionTime": time})
+  }
+  
   async componentDidMount() {
-    var value = await AsyncStorage.getItem('time');
-    this.setState({"sessionTime": value});
-    console.log("YUP", this.state.path.path);
+    // var value = await AsyncStorage.getItem('time');
+    this.setState({"sessionTime": 0});
+    this.setState({"temperament": this.props.navigation.getParam("temperament")});
+    var time = this.props.navigation.getParam('sessionTime', '3 min');
+    time = time.split(" ")[0];
+    if (this.props.navigation.getParam("prompt", "No") == "Yes") {
+      Alert.alert(
+        "Draw " + this.state.prompt + "!", null,
+        [{text: 'OK', onPress: () => this.startTime(time)}]
+      );
+    } else {
+      this.setState({"sessionTime": time});
+    }
   }
 
   render() {
 
-    const { navigation } = this.props;
+    const { navigation } = this.props
+    let promptText = null;
+    if (navigation.getParam('prompt', 'No') == 'Yes') {
+      promptText = <View style={{position: 'absolute', width: '100%'}}>
+        <Text style={{fontSize: 25, textAlign: 'center'}}>
+          {this.state.prompt}
+        </Text>
+      </View>;
+    }
 
     return (
       <View style={styles.container}>
 
-
                 <View style={{ flex: 1, flexDirection: 'row' }}>
 
-                <View style= {{position: 'absolute', top:0, left: 10 }}>
-
-                <TimerCountdown
-                      initialSecondsRemaining={this.state.sessionTime * 60000}
-                      onTick={secondsRemaining => console.log('tick', secondsRemaining)}
-                      //TODO: On timer end, procede to next screen
-                      // onTimeElapsed={() => console.log('complete')}
-                      //TODO: Style timer
-                      allowFontScaling={true}
-                      style={{ fontSize: 25 }}
-                  />
-
-                </View>
                 <RNSketchCanvas
                   ref={ref => this.canvas1 = ref}
                   containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
@@ -96,12 +231,22 @@ export default class BlankCanvasScreen extends React.Component {
                   )}}
 
                   onStrokeEnd={(path) => {
-                    //this.canvas1.clear();
-                    this.canvas1.addPath(this.state.path)
+                    this.state.userPaths.push(path);
                   }}
-
-
                 />
+
+                <View style= {{position: 'absolute', top:0, left: 10 }}>
+
+                <TimerCountdown
+                      initialSecondsRemaining={this.state.sessionTime * 60000}
+                      onTick={secondsRemaining => this.addLine.apply(this,[secondsRemaining])}
+                      onTimeElapsed={() => this.onFinish()}
+                      //TODO: Style timer
+                      allowFontScaling={true}
+                      style={{ fontSize: 25 }}
+                  />
+                </View>
+                {promptText}
               </View>
             </View>
     );

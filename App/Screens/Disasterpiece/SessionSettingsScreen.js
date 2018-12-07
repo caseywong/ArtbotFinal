@@ -21,8 +21,8 @@ export default class SessionSettingsScreeen extends React.Component {
   };
 
   state = {
-    sessionTime: 5,
-    prompt: true,
+    sessionTime: '3 min',
+    prompt: "Yes",
     temperament: 50
   }
 
@@ -38,17 +38,18 @@ export default class SessionSettingsScreeen extends React.Component {
   render() {
     const { navigation } = this.props;
     const dataTime = [{
-      label: "1 min", value: '1',
+      value: "1 min",
     }, {
-      label: "2 min", value: '2',
+      value: "2 min",
     }, {
-      label: "3 min", value: '3',
+      value: '3 min',
     }, {
-      label: "4 min", value: '4',
+      value: "4 min",
     }, {
-      label: "5 min", value: '5',
+      value: '5 min',
     }];
-    
+
+    const { prompt, sessionTime, temperament } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.userMessage}>
@@ -63,15 +64,16 @@ export default class SessionSettingsScreeen extends React.Component {
             <Text style={styles.promptMessage}> How long is this session? </Text>
             <Dropdown
               data={dataTime}
+              value={sessionTime}
               textColor="deepskyblue"
               containerStyle={{width:150, marginBottom: 20}}
-              onChangeText={(value) => {this._storeData(value)}
-            }
+              onChangeText={(value) => this.setState({sessionTime: value})}
 
             />
             <Text style={styles.promptMessage}> Would you like a prompt? </Text>
             <Dropdown
               data={[{value: "Yes"}, {value: "No"}]}
+              value={prompt}
               itemTextStyle={{color:'black'}}
               textColor="deepskyblue"
               containerStyle={{width:150, marginBottom: 20}}
@@ -80,9 +82,9 @@ export default class SessionSettingsScreeen extends React.Component {
             <Text style={styles.promptMessage}> How would you like Artbot's temperament to be? </Text>
               <Slider
                  style={{ width: 200, padding: 40}}
-                 step={1}
+                 step={10}
                  value={50}
-                 minimumValue={1}
+                 minimumValue={10}
                  maximumValue={100}
                  onValueChange={(value) => this.setState({temperament: value })}
                  minimumTrackTintColor='deepskyblue'
@@ -91,18 +93,14 @@ export default class SessionSettingsScreeen extends React.Component {
         </View>
         <View style={styles.start}>
           <TouchableOpacity style={styles.proceedButtonWrapper}
-              onPress={()=> navigation.navigate('BlankCanvasScreen')}>
+              onPress={()=> navigation.navigate('BlankCanvasScreen', {prompt, sessionTime, temperament})}>
               <Text style={styles.continueMessage}> Start! </Text>
           </TouchableOpacity>
         </View>
       </View>
     );
-
   }
-
 }
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
