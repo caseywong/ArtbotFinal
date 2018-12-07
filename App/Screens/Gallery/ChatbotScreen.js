@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image,
   Button, TouchableOpacity, Alert, Dimensions,
   AsyncStorage} from 'react-native';
@@ -9,10 +10,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default class ChatbotScreen extends React.Component {
+import { addCiq } from '../../Actions/DisasterpieceActions';
+
+class ChatbotScreen extends React.Component {
   constructor(props) {
     super(props);
   }
+
   goHome(){
     this.props.navigation.navigate('HomeScreen');
   }
@@ -21,25 +25,23 @@ export default class ChatbotScreen extends React.Component {
     const {params = {}} = navigation.state;
     const fromCanvas = navigation.getParam("fromCanvas");
     if (fromCanvas) {
-    return {
-        headerTitle: 'Chatbot',
-        headerStyle: { backgroundColor: 'deepskyblue' },
-        headerLeft: <Ionicons name={'ios-home'}
-          size={25}
-          onPress= {() => navigation.navigate('HomeScreen') }
-          color="#fff"
-          style= {{padding:10}}
-        />
-    };
-  } else {
-    return {
-        headerTitle: 'Chatbot',
-        headerStyle: { backgroundColor: 'deepskyblue' },
-    };
-  }
+        return {
+            headerTitle: 'Chatbot',
+            headerStyle: { backgroundColor: 'deepskyblue' },
+            headerLeft: <Ionicons name={'ios-home'}
+              size={25}
+              onPress= {() => navigation.navigate('HomeScreen') }
+              color="#fff"
+              style= {{padding:10}}
+            />
+        };
+    } else {
+        return {
+            headerTitle: 'Chatbot',
+            headerStyle: { backgroundColor: 'deepskyblue' },
+        };
+    }
   };
-
-
 
 
   state = {
@@ -231,3 +233,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray'
   }
 });
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addCiq: (img, ciq) => { dispatch(addCiq(img, ciq)); }
+    };
+}
+
+export default connect(null, mapDispatchToProps)(ChatbotScreen);

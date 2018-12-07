@@ -26,6 +26,7 @@ class BlankCanvasScreen extends React.Component {
     super(props);
     const prompt = promptOptions[Math.floor(Math.random() * promptOptions.length)];
     this.state = {
+      name: "Name",
       background: null,
       hasStarted: false,
       sessionTime: null,
@@ -191,8 +192,9 @@ class BlankCanvasScreen extends React.Component {
     this.setState({"sessionTime": time})
   }
 
-  nextScreen(home, name){
+  nextScreen(home){
     this.setState({promptVisible: false});
+    var { name } = this.state;
     var img = name.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase();
     var today = new Date();
     var dd = today.getDate();
@@ -300,8 +302,9 @@ class BlankCanvasScreen extends React.Component {
                 visible={ this.state.promptVisible }
                 submitText = {"Calculate Creative IQ"}
                 cancelText = {"Return Home"}
-                onCancel={ (value) => this.nextScreen(true,value) }
-                onSubmit={ (value) => this.nextScreen(false,value) } />
+                onCancel={ () => this.nextScreen(true) }
+                onSubmit={ (value) => this.nextScreen(false) }
+                onChangeText={ (value) => this.setState({name: value}) } />
             </View>
 
     );
